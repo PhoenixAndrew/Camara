@@ -8,15 +8,28 @@
 <script type="text/javascript" src="phonegap.js"></script>
 <script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
 <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+
 <script type="text/javascript">
 var destinationType;
 // instalar ripple emulator en google chrome
-$("document").ready(function inicio(){
+//$("document").ready(function inicio(){
+document.addEventListener("deviceready",onDeviceReady,false);
+function onDeviceReady(){
 $("#btnCamara").tap(function pulsacion(){
     alert("camara iniciada");
-navigator.camera.getPicture(Satisfactorio,Error,{quality:50,allowEdit:true,destinationType:destinationType.DATA_URL});
+navigator.camera.getPicture(onSuccess,onFail,{quality:50,allowEdit:true,destinationType:destinationType.DATA_URL});
+function onSuccess(imageURI) {
+    var image = document.getElementById('myImage');
+    image.src = imageURI;
+}
+
+function onFail(message) {
+    alert('Failed because: ' + message);
+}
+
 });
-});
+}
+        //);
 </script>
 <!--link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 <!--script src="http://code.jquery.com/jquery-1.11.1.min.js"></script-->
@@ -54,6 +67,7 @@ navigator.camera.getPicture(Satisfactorio,Error,{quality:50,allowEdit:true,desti
 	<div id="BckGnd" data-role="content">
 		<p id="encabezado">Foto Camara</p>
                 <input type="button" value="Ver camara" id="btnCamara"/>
+                <img src="" id="myImage">
 	</div>
         <div data-role="footer">
     </div>
